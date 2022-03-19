@@ -1,0 +1,28 @@
+{
+  "name": "api-santana",
+  "version": "1.0.0",
+  "description": "Backend API for the web site santanaquimica.com.br",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcsj89/api-santana.git"
+  },
+  "keywords": [],
+  "author": "Jose Carlos Sant Anna Junior",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcsj89/api-santana/issues"
+  },
+  "homepage": "https://github.com/jcsj89/api-santana#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.0"
+  }
+}
