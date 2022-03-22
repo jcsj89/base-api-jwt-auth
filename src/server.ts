@@ -4,7 +4,7 @@ import config from './config';
 import routes from './routes';
 
 //CONSTANTS
-const PORT = config.port || 3339;
+const PORT = config.port || 3333;
 
 //EXEC
 const app = express();
@@ -20,9 +20,9 @@ app.use('/public', express.static(__dirname + '/public'));
 const isProduction = config.env === 'production';
 
 if (isProduction) {
-  console.log('DATABASE IN PRODUCTION [OK]');
+  console.log('DATABASE IN PRODUCTION [OK] - ', config.token);
 } else {
-  console.log('DATABASE IN DEVLOPMENT [OK]');
+  console.log('DATABASE IN DEVLOPMENT [OK] - ', config.tokenTest);
 }
 
 //SETUP ROUTES
