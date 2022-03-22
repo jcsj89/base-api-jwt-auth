@@ -12,6 +12,7 @@ export default {
   tokenTest: process.env.JWT_TEST_SECRET,
   // database config
   database: {
-    host: process.env.DB_HOST,
+    url: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}
+    @${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}` 
   },
 };
