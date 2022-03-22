@@ -1,27 +1,31 @@
-import {Sequelize, DataType, Model} from '@sequelize/core';
+import { Model, DataTypes } from '@sequelize/core';
 import sequelize from '../db';
 
 export default class ProductModel extends Model {}
 
-ProductModel.init({
+ProductModel.init(
+  {
     id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        // autoIncrement: true,
-        // allowNull: false,
-        primaryKey: true
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
     },
     nome: {
-        type: Sequelize.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     preco: {
-        type: Sequelize.DOUBLE
+      type: DataTypes.DOUBLE,
     },
-    descricao: Sequelize.STRING
-},
-{
+    estoque: {
+      type: DataTypes.INTEGER,
+    },
+    descricao: DataTypes.STRING,
+  },
+  {
     sequelize,
-    modelName: 'Produtos'
-});
-
+    modelName: 'Produtos',
+  },
+);

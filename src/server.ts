@@ -3,7 +3,8 @@ import cors from 'cors';
 import config from './config';
 import routes from './routes';
 
-import ProductModel from './database/models/ProductModel'
+import ProductModel from './database/models/ProductModel';
+import database from './database/db';
 
 //CONSTANTS
 const PORT = config.port || 3333;
@@ -26,20 +27,15 @@ const isProduction = config.env === 'production';
 if (isProduction) {
   console.log('DATABASE IN PRODUCTION [OK] - ', config.token);
 } else {
-  ProductModel.create({
-    nome: 'lapis',
-    preco: 2.34,
-    descricao: 'lapis de cor'
-  }).then((resp)=>{
-    console.log('criado',resp.id)
+  database.sync();
+  // const novoProd = ProductModel.create({
+  //   nome: 'caneta azul',
+  //   preco: 2.7,
+  //   estoque: 2,
+  // });
 
-  })
+  // console.log(novoProd);
 
-
-  console.log(ProductModel)
-  const database = require('./database/db');
-
-  
   console.log('DATABASE IN DEVLOPMENT [OK] - ', config.tokenTest);
 }
 
