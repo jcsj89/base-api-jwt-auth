@@ -1,10 +1,10 @@
+import 'pg';
 import express from 'express';
 import cors from 'cors';
 import config from './config';
 import routes from './routes';
 
-import ProductModel from './database/models/ProductModel';
-import database from './database/db';
+import './database/db';
 
 //CONSTANTS
 const PORT = config.port || 3333;
@@ -27,15 +27,6 @@ const isProduction = config.env === 'production';
 if (isProduction) {
   console.log('DATABASE IN PRODUCTION [OK] - ', config.token);
 } else {
-  database.sync();
-  // const novoProd = ProductModel.create({
-  //   nome: 'caneta azul',
-  //   preco: 2.7,
-  //   estoque: 2,
-  // });
-
-  // console.log(novoProd);
-
   console.log('DATABASE IN DEVLOPMENT [OK] - ', config.tokenTest);
 }
 
