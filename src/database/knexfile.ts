@@ -1,30 +1,37 @@
-import { database } from '../config';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const dotenv = require('dotenv');
 
-export default {
+dotenv.config({
+  path: process.env.NODE_ENV !== 'development' ? '.env' : '.env.dev',
+});
+
+console.log(process.env.DB_URL);
+module.exports = {
   development: {
     client: 'pg',
-    connection: database.url,
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: { directory: './migrations' },
-    seeds: { directory: './seeds' },
-  },
-
-  production: {
-    client: 'postgresql',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password',
-    },
-    pool: {
-      min: 2,
-      max: 10,
+      connectionString: process.env.DB_URL,
     },
     migrations: {
-      tableName: 'knex_migrations',
+      directory: path.resolve(__dirname, '..', 'database', 'migrations'),
+    },
+    useNullAsDefault: true,
+  },
+  production: {
+    client: 'pg',
+    connection: {
+      connectionString: process.env.DB_URL,
+      ssl: { rejectUnauthorized: false },
+    },
+    migrations: {
+      directory: path.resolve(__dirname, '..', 'database', 'migrations'),
+    },
+    useNullAsDefault: true,
+    pool: {
+      min: 2,
+      max: 10,
     },
   },
-};
+}[process.env.NODE_ENV || 'development'];

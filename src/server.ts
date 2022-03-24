@@ -4,7 +4,7 @@ import cors from 'cors';
 import config from './config';
 import routes from './routes';
 
-import './database/db';
+import './database/connection';
 
 //CONSTANTS
 const PORT = config.port || 3333;

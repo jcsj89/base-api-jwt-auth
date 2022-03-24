@@ -13,8 +13,10 @@ export default {
 };
 
 // connection to database
-export const database = {
+const database = {
   url: process.env.DB_URL,
 };
+
+module.exports = database;
 
 export const env = process.env.NODE_ENV || 'development';
