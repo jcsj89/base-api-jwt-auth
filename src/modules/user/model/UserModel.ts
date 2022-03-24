@@ -1,18 +1,18 @@
 interface IUser {
   id: string;
-  name: string;
-  password: string;
+  email: string;
+  password_hash: string;
 }
 
 class User {
   id: string;
-  name: string;
-  password: string;
+  email: string;
+  password_hash: string;
 
-  constructor({ id, name, password }: IUser) {
+  constructor({ id, email, password_hash }: IUser) {
     this.id = id;
-    this.name = name;
-    this.password = password;
+    this.email = email;
+    this.password_hash = password_hash;
   }
 }
 

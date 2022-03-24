@@ -12,11 +12,8 @@ export default {
   tokenTest: process.env.JWT_TEST_SECRET,
 };
 
-// connection to database
-const database = {
+export const env = process.env.NODE_ENV || 'development';
+
+export const database = {
   url: process.env.DB_URL,
 };
-
-module.exports = database;
-
-export const env = process.env.NODE_ENV || 'development';
