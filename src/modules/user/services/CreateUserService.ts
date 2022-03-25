@@ -2,6 +2,7 @@ import knex from '../../../database/connection';
 import User from '../model/UserModel';
 import { v4 } from 'uuid';
 import bcrypt from 'bcryptjs';
+import AppError from '../../../middleware/AppError';
 
 interface IRequest {
   id?: string;
@@ -16,8 +17,8 @@ export default class CreateUserService {
       .select('*')
       .where({ email: email });
 
-    if (hasUser.length > 0) {
-      throw new Error('Usuario ja exists');
+    if (hasUser.length) {
+      throw new AppError('User alredy exists.');
     }
 
     const password_hash = await bcrypt.hash(password, 8);
@@ -26,9 +27,15 @@ export default class CreateUserService {
       id: v4(),
       email,
       password_hash,
+      isActive: true,
     };
 
-    await knex('users').insert(user);
+    try {
+      await knex('users').insert(user);
+    } catch (error) {
+      console.log(error); //tratar oque fazer com o erro depois, se vai logar ou fazer nada
+      throw new AppError('CreateUserService::error insert knex');
+    }
 
     return user;
   }

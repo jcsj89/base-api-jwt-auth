@@ -10,10 +10,6 @@ dotenv.config({
   path: process.env.NODE_ENV !== 'development' ? '.env' : '.env.dev',
 });
 
-// console.log(process.env);
-console.log('knexfile::type', typeof database.url);
-console.log('knexfile::databse', database);
-
 module.exports = {
   development: {
     client: 'pg',

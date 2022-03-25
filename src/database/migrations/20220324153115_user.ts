@@ -5,6 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary();
     table.string('email');
     table.string('password_hash');
+    table.boolean('isActive');
 
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());

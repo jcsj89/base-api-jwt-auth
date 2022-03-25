@@ -1,5 +1,7 @@
 import 'pg';
-import express from 'express';
+import 'express-async-errors';
+import AppError from './middleware/AppError';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import config from './config';
 import routes from './routes';
@@ -33,23 +35,19 @@ if (isProduction) {
 //SETUP ROUTES
 app.use(routes);
 
-// HANDLE NOT FOUND 404
-app.use(function (req, res, next) {
-  const err = new Error('Not Found');
-  //err.status = 404;
-  err.message = 'error 404';
-  next(err);
-});
+// TRATAMENTO DE ERROS
+app.use((error: Error, __: Request, response: Response, _: NextFunction) => {
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({
+      status: 'API Error',
+      message: error.message,
+    });
+  }
 
-// HANDLE ALL KINDS OF ERROR (422, 401, 500, ...)
-app.use(function (request, response, next) {
-  // res.status(err.status || 500);
-  // res.json({
-  //   errors: {
-  //     message: err.message,
-  //     error: {},
-  //   },
-  // });
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error' + error,
+  });
 });
 
 // STARTUP
