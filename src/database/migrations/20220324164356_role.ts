@@ -4,6 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('roles', (table) => {
     table.uuid('id').primary().unique();
     table.string('role');
+    table.string('description');
 
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());
