@@ -30,6 +30,8 @@ if (isProduction) {
   console.log('DATABASE IN PRODUCTION [OK] - ', config.token);
 } else {
   console.log('DATABASE IN DEVLOPMENT [OK] - ', config.tokenTest);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const teste = require('./tests/knex.test');
 }
 
 //SETUP ROUTES
