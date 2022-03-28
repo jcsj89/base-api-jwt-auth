@@ -1,11 +1,9 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable('users', (table) => {
-    table.uuid('id').primary().unique();
-    table.string('email');
-    table.string('password_hash');
-    table.boolean('isActive');
+  return knex.schema.createTable('user_role', (table) => {
+    table.uuid('user_id').references('id').inTable('users');
+    table.uuid('role_id').references('id').inTable('roles');
 
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());
@@ -14,5 +12,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable('users');
+  return knex.schema.dropTable('user_role');
 }
