@@ -19,6 +19,12 @@ const teste = async () => {
     .join('roles', 'user_role.role_id', '=', 'roles.id');
   console.log(consult);
 
+  const consult3 = await connection('users')
+    .select('users.email', 'roles.role')
+    .join('user_role', 'users.id', '=', 'user_id')
+    .join('roles', 'user_role.role_id', '=', 'roles.id');
+  console.log(consult3);
+
   const consult2 = await connection('users')
     .select('users.email', 'roles.role')
     .innerJoin('user_role', 'users.id', '=', 'user_id')
