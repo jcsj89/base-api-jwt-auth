@@ -5,11 +5,20 @@ console.log('connnn');
 const teste = async () => {
   const users = await connection('users').select('id');
   const roles = await connection('roles').select('id');
+  const resources = await connection('resources').select('id');
 
   const user_role = {
     user_id: users[1].id,
     role_id: roles[1].id,
   };
+
+  // for (const item of resources) {
+  //   console.log('resource id: ', item);
+  //   await connection('role_resource').insert({
+  //     resource_id: item.id,
+  //     role_id: roles[1].id,
+  //   });
+  // }
   //await connection('user_role').del();
   //const insert = await connection('user_role').insert(user_role);
 
@@ -19,18 +28,20 @@ const teste = async () => {
     .join('roles', 'user_role.role_id', '=', 'roles.id');
   console.log(consult);
 
-  const consult3 = await connection('users')
-    .select('users.email', 'roles.role')
-    .join('user_role', 'users.id', '=', 'user_id')
-    .join('roles', 'user_role.role_id', '=', 'roles.id');
-  console.log(consult3);
-
   const consult2 = await connection('users')
     .select('users.email', 'roles.role')
     .innerJoin('user_role', 'users.id', '=', 'user_id')
     .innerJoin('roles', 'user_role.role_id', '=', 'roles.id')
     .toString();
   console.log(consult2);
+
+  const resourcesList = await connection('roles')
+    .select('roles.role', 'resources.name', 'resources.action')
+    .innerJoin('role_resource', 'roles.id', '=', 'role_id')
+    .innerJoin('resources', 'role_resource.resource_id', '=', 'resources.id')
+    .where('roles.role', '=', 'MANAGER');
+
+  console.log(resourcesList);
 };
 teste();
 module.exports = { teste };

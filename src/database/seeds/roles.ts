@@ -23,5 +23,10 @@ export async function seed(knex: Knex): Promise<void> {
       role: 'SELLER',
       description: 'Tem acesso a algumas rotas especificas.',
     },
+    {
+      id: uuidv4(),
+      role: 'USER',
+      description: 'Tem acesso a algumas rotas especificas.',
+    },
   ]);
 }

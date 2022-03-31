@@ -40,6 +40,7 @@ export default class UserController {
     };
 
     const userUpdated = await service.execute(user);
+    // request.baseUrl = '/user';
 
     return response.json(userUpdated);
   }

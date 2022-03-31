@@ -5,5 +5,9 @@ export default function (
   response: Response,
   next: NextFunction,
 ) {
-  return;
+  //console.log(request);
+  const url = request.url;
+  const baseUrl = url.split('/');
+  console.log(baseUrl);
+  next();
 }
