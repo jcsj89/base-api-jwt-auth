@@ -1,9 +1,9 @@
-import knex from '../../../database/connection';
+import knex from '../../../../database/connection';
 import bcrypt from 'bcryptjs';
-import AppError from '../../../middleware/AppError';
+import AppError from '../../../../middleware/AppError';
 import User from 'src/modules/user/model/UserModel';
 import { sign } from 'jsonwebtoken';
-import auth from '../../../config/auth';
+import auth from '../../../../config/auth';
 
 interface IRequest {
   email: string;

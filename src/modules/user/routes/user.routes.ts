@@ -9,15 +9,11 @@ const userRoutes = Router();
 userRoutes.get('/users', userController.index);
 userRoutes.post('/users', authorization, userController.create);
 userRoutes.put(
-  '/user/:id',
+  '/users/:id',
   isAuthenticated,
   authorization,
   userController.update,
 );
-userRoutes.delete('/user/:id', userController.delete);
+userRoutes.delete('/users/:id', userController.delete);
 
 export default userRoutes;
-
-export const baseUrl = {
-  '': '',
-};
