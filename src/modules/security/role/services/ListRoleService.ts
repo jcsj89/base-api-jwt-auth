@@ -1,5 +1,5 @@
-import AppError from '../../../../../middleware/AppError';
-import knex from '../../../../../database/connection';
+import AppError from '../../../../middleware/AppError';
+import knex from '../../../../database/connection';
 import Role from '../model/Role';
 
 export default class ListRoleService {

@@ -4,6 +4,14 @@ import CreateRoleService from '../services/CreateRoleService';
 import UpdateRoleService from '../services/UpdateRoleService';
 import DeleteRoleService from '../services/DeleteRoleService';
 
+interface IRole {
+  id?: string;
+  role: string;
+  description: string;
+  action: string;
+  endpoint: string;
+}
+
 export default class RoleController {
   public async index(request: Request, response: Response): Promise<Response> {
     const service = new ListRoleService();
@@ -14,12 +22,14 @@ export default class RoleController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { role, description } = request.body;
+    const { role, action, endpoint, description } = request.body;
     const service = new CreateRoleService();
 
-    const newRole = {
+    const newRole: IRole = {
       role,
       description,
+      action,
+      endpoint,
     };
 
     const inserted = await service.execute(newRole);
@@ -29,13 +39,15 @@ export default class RoleController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const service = new UpdateRoleService();
-    const { role, description } = request.body;
+    const { role, action, endpoint, description } = request.body;
     const { id } = request.params;
 
-    const newRole = {
+    const newRole: IRole = {
       id,
       role,
       description,
+      action,
+      endpoint,
     };
 
     const roleUpdated = await service.execute(newRole);

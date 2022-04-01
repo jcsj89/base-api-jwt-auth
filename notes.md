@@ -1,7 +1,11 @@
 # My Notes
 
-continuar em : update resource service
-crud resources
+01.04.22 --------------------
+
+continuar em : module role
+crud role
+
+-------------------------------------------------------------------------------------
 
 ### Sites tutoriais
 

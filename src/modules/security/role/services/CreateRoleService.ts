@@ -1,16 +1,23 @@
-import knex from '../../../../../database/connection';
+import knex from '../../../../database/connection';
 import Role from '../model/Role';
 import { v4 } from 'uuid';
-import AppError from '../../../../../middleware/AppError';
+import AppError from '../../../../middleware/AppError';
 
 interface IRequest {
   id?: string;
   role: string;
   description: string;
+  action: string;
+  endpoint: string;
 }
 
 export default class CreateRoleService {
-  public async execute({ role, description }: IRequest): Promise<Role> {
+  public async execute({
+    role,
+    description,
+    action,
+    endpoint,
+  }: IRequest): Promise<Role> {
     const hasRole: Role[] = await knex
       .from('roles')
       .select('*')
@@ -22,7 +29,9 @@ export default class CreateRoleService {
 
     const newRole: Role = {
       id: v4(),
-      role: role.toUpperCase(),
+      role: role.toLowerCase(),
+      action: action.toUpperCase(),
+      endpoint,
       description,
     };
 

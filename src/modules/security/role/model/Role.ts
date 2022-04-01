@@ -1,25 +1,25 @@
-interface IResource {
+interface IRole {
   id: string;
-  name: string;
+  role: string;
   action: string;
   endpoint: string;
   description: string;
 }
 
-class Resource {
+class Role {
   id: string;
-  name: string;
+  role: string;
   action: string;
   endpoint: string;
   description: string;
 
-  constructor({ id, name, action, endpoint, description }: IResource) {
+  constructor({ id, role, action, endpoint, description }: IRole) {
     this.id = id;
-    this.name = name;
+    this.role = role;
     this.action = action;
     this.endpoint = endpoint;
     this.description = description;
   }
 }
 
-export default Resource;
+export default Role;
