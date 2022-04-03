@@ -1,9 +1,13 @@
 # My Notes
 
-01.04.22 --------------------
+01.04.22 -- criacao do modulo role
+02.04.22 -- alteracao do modulo usuario
 
-continuar em : module role
-crud role
+Observacoes:
+
+criar troca de senha do usuario em servico separado
+
+continuar em :
 
 -------------------------------------------------------------------------------------
 

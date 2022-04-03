@@ -4,14 +4,6 @@ import CreateRoleService from '../services/CreateRoleService';
 import UpdateRoleService from '../services/UpdateRoleService';
 import DeleteRoleService from '../services/DeleteRoleService';
 
-interface IRole {
-  id?: string;
-  role: string;
-  description: string;
-  action: string;
-  endpoint: string;
-}
-
 export default class RoleController {
   public async index(request: Request, response: Response): Promise<Response> {
     const service = new ListRoleService();
@@ -25,7 +17,7 @@ export default class RoleController {
     const { role, action, endpoint, description } = request.body;
     const service = new CreateRoleService();
 
-    const newRole: IRole = {
+    const newRole = {
       role,
       description,
       action,
@@ -42,7 +34,7 @@ export default class RoleController {
     const { role, action, endpoint, description } = request.body;
     const { id } = request.params;
 
-    const newRole: IRole = {
+    const newRole = {
       id,
       role,
       description,

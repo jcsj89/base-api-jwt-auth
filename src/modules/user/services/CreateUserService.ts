@@ -5,13 +5,13 @@ import bcrypt from 'bcryptjs';
 import AppError from '../../../middleware/AppError';
 
 interface IRequest {
-  id?: string;
+  name: string;
   email: string;
   password: string;
 }
 
 export default class CreateUserService {
-  public async execute({ email, password }: IRequest): Promise<User> {
+  public async execute({ name, email, password }: IRequest): Promise<User> {
     const hasUser: User[] = await knex
       .from('users')
       .select('*')
@@ -25,9 +25,11 @@ export default class CreateUserService {
 
     const user: User = {
       id: v4(),
+      name,
       email,
       password_hash,
       isActive: true,
+      isAdmin: false,
     };
 
     try {

@@ -6,14 +6,17 @@ import validator from 'validator';
 
 interface IRequest {
   id: string;
+  name: string;
   email: string;
   password: string;
   isActive: boolean;
+  isAdmin?: boolean;
 }
 
 export default class UpdateUserService {
   public async execute({
     id,
+    name,
     email,
     password,
     isActive,
@@ -31,8 +34,10 @@ export default class UpdateUserService {
     }
 
     // verifica se o email é valido e o password nao é undefined
-    if (!validator.isEmail(email) || password.length < 4) {
-      throw new AppError('UpdateUserService:: Email or password is not valid.');
+    if (!validator.isEmail(email) || password.length < 4 || name.length < 4) {
+      throw new AppError(
+        'UpdateUserService:: Email or password or name is not valid.',
+      );
     }
 
     // validacao do email, caso encontre o mesmo email em outro usuario
@@ -47,13 +52,15 @@ export default class UpdateUserService {
     }
 
     // valida o tamanho do password
+    // fazer um servico proprio para alteracao da senha e do status admin do usuario
     password.length >= 4
       ? (hasUser.password_hash = await bcrypt.hash(password, 8))
       : null;
 
-    // atribui email e status
+    // atribui email e status e name
     isActive === true ? (hasUser.isActive = true) : (hasUser.isActive = false);
     hasUser.email = email;
+    hasUser.name = name;
 
     try {
       //atualiza o user depois das validacoes

@@ -32,5 +32,13 @@ export async function seed(knex: Knex): Promise<void> {
       isActive: true,
       isAdmin: false,
     },
+    {
+      id: uuidv4(),
+      name: 'Admin',
+      email: 'zesantanna@gmail.com',
+      password_hash: await hash('1234', 8),
+      isActive: true,
+      isAdmin: true,
+    },
   ]);
 }

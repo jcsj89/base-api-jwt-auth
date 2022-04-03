@@ -14,10 +14,11 @@ export default class UserController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { email, password } = request.body;
+    const { name, email, password } = request.body;
     const service = new CreateUserService();
 
     const user = {
+      name,
       email,
       password,
     };
@@ -29,18 +30,18 @@ export default class UserController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const service = new UpdateUserService();
-    const { email, password, isActive } = request.body;
+    const { name, email, password, isActive } = request.body;
     const { id } = request.params;
 
     const user = {
       id,
+      name,
       email,
       password,
       isActive,
     };
 
     const userUpdated = await service.execute(user);
-    // request.baseUrl = '/user';
 
     return response.json(userUpdated);
   }

@@ -4,7 +4,6 @@ import { v4 } from 'uuid';
 import AppError from '../../../../middleware/AppError';
 
 interface IRequest {
-  id?: string;
   role: string;
   description: string;
   action: string;
@@ -18,13 +17,27 @@ export default class CreateRoleService {
     action,
     endpoint,
   }: IRequest): Promise<Role> {
-    const hasRole: Role[] = await knex
+    role = role.toLocaleLowerCase(); // convert role to lower case
+    action = action.toUpperCase(); // convert action to upper case
+
+    // find role with same name
+    const rolesByName: Role[] = await knex
       .from('roles')
       .select('*')
       .where({ role: role });
 
-    if (hasRole.length) {
-      throw new AppError('Role alredy exists.');
+    console.log('create role service::', rolesByName.length);
+
+    if (rolesByName.length) {
+      for (const obj of rolesByName) {
+        if (
+          obj.role === role &&
+          obj.action === action &&
+          obj.endpoint === endpoint
+        ) {
+          throw new AppError('CREATE ROLE SERVICE:: Role alredy exists.');
+        }
+      }
     }
 
     const newRole: Role = {

@@ -4,7 +4,7 @@ import AppError from '../../../../middleware/AppError';
 import validator from 'validator';
 
 interface IRequest {
-  id?: string | undefined;
+  id: string;
   role: string;
   description: string;
   action: string;
@@ -57,9 +57,11 @@ export default class UpdateRoleService {
       // action igual e endpoint igual, para nao ter duplicidade
       for (const item of roles) {
         if (
-          item.action === hasRole.action &&
-          item.endpoint === hasRole.endpoint
+          item.action === action &&
+          item.endpoint === endpoint &&
+          item.id !== id
         ) {
+          console.log(item);
           throw new AppError('Update Role Service:: Role alredy exists.');
         }
       }
@@ -73,10 +75,10 @@ export default class UpdateRoleService {
     description.length >= 4 ? (hasRole.description = description) : null;
 
     try {
-      //atualiza o user depois das validacoes
+      // atualiza o user depois das validacoes
       await knex('roles').where({ id: hasRole.id }).update(hasRole);
     } catch (error) {
-      console.log(error); //tratar oque fazer com o erro depois, se vai logar ou fazer nada
+      console.log(error); // tratar oque fazer com o erro depois, se vai logar ou fazer nada
       throw new AppError('Update Role Service:: Error update knex');
     }
 
