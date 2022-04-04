@@ -29,9 +29,15 @@ export default class CreateSessionService {
 
     if (!match) throw new AppError('Email or password are incorrects.');
 
-    const token = sign({ subject: user.id }, auth.JWT.secret, {
-      expiresIn: auth.JWT.expiresIn,
-    });
+    const token = sign(
+      { subject: user.id, isAdmin: user.isAdmin },
+      auth.JWT.secret,
+      {
+        expiresIn: auth.JWT.expiresIn,
+      },
+    );
+
+    user.password_hash = '';
 
     return { user, token };
   }

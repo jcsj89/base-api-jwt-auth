@@ -39,6 +39,9 @@ export default class CreateUserService {
       throw new AppError('CreateUserService::error insert knex');
     }
 
+    // retorno sem password
+    user.password_hash = '';
+
     return user;
   }
 }

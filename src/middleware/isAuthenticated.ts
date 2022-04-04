@@ -6,7 +6,8 @@ import auth from '../config/auth';
 interface TokenPayload {
   iat: number;
   exp: number;
-  sub: string;
+  subject: string;
+  isAdmin: boolean;
 }
 
 export default function isAuthenticated(
@@ -23,10 +24,11 @@ export default function isAuthenticated(
   try {
     const decodedToken = verify(token, auth.JWT.secret);
 
-    const { sub } = decodedToken as TokenPayload;
+    const { subject, isAdmin } = decodedToken as TokenPayload;
 
     request.user = {
-      id: sub,
+      id: subject,
+      isAdmin,
     };
 
     return next();
