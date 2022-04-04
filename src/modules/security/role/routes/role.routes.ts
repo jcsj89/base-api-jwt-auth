@@ -8,7 +8,12 @@ const roleRoutes = Router();
 
 roleRoutes.get('/roles', roleController.index);
 roleRoutes.post('/roles', roleController.create);
-roleRoutes.put('/roles/:id', isAuthorized, roleController.update);
+roleRoutes.put(
+  '/roles/:id',
+  isAuthenticated,
+  isAuthorized,
+  roleController.update,
+);
 roleRoutes.delete('/roles/:id', roleController.delete);
 
 export default roleRoutes;
