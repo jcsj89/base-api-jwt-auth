@@ -29,7 +29,8 @@ export default async function (
 
   for (const role of roles) {
     if (role.action === method && role.endpoint === url) {
-      console.log('autorizado');
+      console.log('Usuario autorizado');
+      console.log('User ID: ', user.id);
       return next();
     }
   }
