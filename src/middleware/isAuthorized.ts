@@ -31,6 +31,8 @@ export default async function (
     if (role.action === method && role.endpoint === url) {
       console.log('Usuario autorizado');
       console.log('User ID: ', user.id);
+      console.log('router.path', request.route.path);
+      console.log('router.path', request.route.path);
       return next();
     }
   }
