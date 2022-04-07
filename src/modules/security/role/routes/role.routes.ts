@@ -6,7 +6,7 @@ import isAuthorized from '../../../../middleware/isAuthorized';
 const roleController = new RoleController();
 const roleRoutes = Router();
 
-roleRoutes.get('/roles', roleController.index);
+roleRoutes.get('/roles', isAuthenticated, isAuthorized, roleController.index);
 roleRoutes.post('/roles', roleController.create);
 roleRoutes.put(
   '/roles/:id',

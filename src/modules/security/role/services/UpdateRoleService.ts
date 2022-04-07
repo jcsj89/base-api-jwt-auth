@@ -34,7 +34,7 @@ export default class UpdateRoleService {
     if (!hasRole) {
       throw new AppError('UpdateRoleService:: Role not exists.');
     }
-
+    console.log(action, endpoint);
     //valida o tamanho de role e description
     if (
       role.length < 4 ||
